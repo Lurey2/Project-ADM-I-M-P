@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script
+      type="text/javascript"
+      src="{{ url_for('static',filename='js/secondf.js') }}"
+    ></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='css/main.css') }}"
+    />
+    <title>Document</title>
+
+    <link href="https://css.gg/css" rel="stylesheet" />
+
+    <!-- UNPKG -->
+    <link href="https://unpkg.com/css.gg/icons/all.css" rel="stylesheet" />
+
+    <!-- JSDelivr -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/css.gg/icons/all.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="body">
+    
+    <div>
+      <a href="http://localhost:5000" ><h1 style="text-align: center; font-weight: 900">Ve peliculas</h1></a>
+    </div>
+      <div class="panel-main" >
+      
+        <div class="panel">
+          <div class="Tittle">
+            <div class="tittle-1">
+              <h3>{{result["movieID"][1]}}</h3>
+            </div>
+          </div>
+          <div class="content-movie">
+            <div class="tag-movie">
+              {{result["movieID"][2].replace("|", "-")}}
+            </div>
+            <div class="score-movie">
+              <div class="puntaje" style="cursor: pointer;" id="score" onclick={{ "puntuar(" + (result['movieID'][0] | string )+")"}} > 
+                {{("--", result["dict"][result["movieID"][0]])[result["dict"].get(result["movieID"][0]) is not none]}}
+              </div>
+            </div>
+          </div>
+          <div class="argumento-movie">
+            <p>{{result["movieID"][3]}}</p>
+          </div>
+        </div>
+
+        <h2>Tambien puedes ver :</h2>
+        <div class="panel_list_movie_recomend_2" >
+        {% for value in result["similarity"] %}
+      
+          <div class="panel">
+            <div class="Tittle">
+              <div class="tittle-1">
+                <h3>{{value[1]}}</h3>
+              </div>
+              <div class="tittle-watch">
+                <a href='{{ "http://localhost:5000/movie/" + (value[0] |string) }}'>
+                  <div class="button-style-play">
+                    <i class="gg-play-button"></i>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <div class="content-movie">
+              <div class="tag-movie">{{value[2].replace("|", "-")}}</div>
+            
+            </div>
+            <div class="argumento-movie">
+              <p>{{value[3]}}</p>
+            </div>
+          </div>
+        {% endfor %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script
+      type="text/javascript"
+      src="{{ url_for('static',filename='js/main.js') }}"
+    ></script>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static',filename='css/main.css') }}"
+    />
+
+    <link href="https://css.gg/css" rel="stylesheet" />
+
+    <!-- UNPKG -->
+    <link href="https://unpkg.com/css.gg/icons/all.css" rel="stylesheet" />
+
+    <!-- JSDelivr -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/css.gg/icons/all.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="body">
+    <div>
+      <h1 style="text-align: center; font-weight: 900">Ve peliculas</h1>
+    </div>
+    <div class="Panel_recomendation" >
+      <div class="panel_r_tittle"  >
+        Recomendacion
+      </div>
+      <div class="slider_panel">
+        {% for value in result["movieRecomend"] %}
+        <div class="panel_r_movie" >
+          <div class="panel_r_m_ex" >
+            <div class="panel_r_m_tittle" ><a href={{"http://localhost:5000/movie/" + (value[0] | string)}} style="text-decoration: none;" > {{value[1]}}</a></div>
+            <div class="panel_r_m_categoria" >{{value[2].replace("|", "-")}}</div>
+            <div class="panel_r_m_text" >{{value[3]}}</div>
+          </div>
+        </div>
+        {% endfor %}
+       
+        </div>
+        <a class="prev" onclick="change(-1)">&#10094;</a>
+        <a class="next" onclick="change(1)">&#10095;</a>
+      </div>
+      
+      
+    </div>
+    <div class="panel-main">
+      <div>
+        <input
+          type="text"
+          class="filter-movie"
+          placeholder="buscar pelicula..."
+          id="filtrado-movie"
+        />
+      </div>
+      <div style="width: 100%;" id="pane-movie-list" class="panel_list_movie_recomend" >
+        
+      </div>
+      <div class="panel-button-bottom">
+        <div class="arrow-bottom-button" id="buttonaument">
+          <i class="gg-arrow-down"></i>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
